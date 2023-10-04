@@ -37,6 +37,7 @@ from gNAS import *
 from gSECURITY import *
 
 from datetime import datetime
+from hexdump import hexdump
 
 requests.packages.urllib3.disable_warnings() 
 
@@ -4192,6 +4193,10 @@ class nwu_swu():
                         elif self.ip_address_list[-1] != '0.0.0.0':   #get last, or first if only one ipv4 (good for epdg and free5Gc)
                             self.tunnel_ipv4_address = self.ip_address_list[-1]
                             print('TUNNEL IP FOR TCP',self.tunnel_ipv4_address)
+                            self.nas_ip_address = '10.1.0.123'
+                            self.nas_tcp_port = 1667
+                            print('HACK: setting NAS IP ADDRESS to:', self.nas_ip_address)
+                            print('HACK: setting NAS TCP PORT to:', self.nas_tcp_port)
                                                      
                     else:
                         #check error
@@ -4230,8 +4235,11 @@ class nwu_swu():
     def state_7_nwu(self, packet):
         print('\n\nSTATE 7:\n-------')
         message_list = []
-
-        nas_decoded = nas_decode(packet)  # nas_pdu
+        nas_decoded = []
+        print('NAS packet len', len(packet))
+        print(hexdump(packet))
+        if len(packet)>1:
+            nas_decoded = nas_decode(packet)  # nas_pdu
         print('NAS DECODED', nas_decoded)
         if get_nas_ie_by_name(nas_decoded,IE_SECURITY_HEADER) in (INTEGRITY_PROTECTED_AND_CIPHERED,):
             nas_decoded_encrypted = get_nas_ie_by_name(nas_decoded,IE_NAS_MESSAGE_ENCRYPTED)

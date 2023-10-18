@@ -2526,7 +2526,7 @@ class nwu_swu():
    
 
     def generate_keying_material_child(self, reverse = False):
-        if self.negotiated_diffie_hellman_group_child is not None:
+        if self.negotiated_diffie_hellman_group_child is not None and self.negotiated_diffie_hellman_group_child != NONE:
             STREAM = self.dh_shared_key_child + self.nounce + self.nounce_received
         else:
             STREAM = self.nounce + self.nounce_received
@@ -4265,7 +4265,7 @@ class nwu_swu():
                 print('Preparing REGISTRATION COMPLETE to send...')
 
                 self.nas_pdu_session_id = 1
-                self.nas_pti = 0
+                self.nas_pti = 1
                 self.nas_session_type = IE_PDU_SESSION_TYPE__IPV4
                 nas_pdu_session_establishment_request = nas_5gs_sm_pdu_session_establishment_request(self.nas_pdu_session_id,self.nas_pti,
                     IE_INTEGRITY_PROTECTION_MAXIMUM_DATA_RATE__FULL_DATA_RATE,self.nas_session_type,None,encode_pco(self.nas_session_type))

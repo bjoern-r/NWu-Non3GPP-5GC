@@ -1,0 +1,9 @@
+serial
+wheel 
+pycryptodome
+swig 
+requests 
+cryptography
+simple-hexdump
+git+https://github.com/mitshell/card.git
+git+https://github.com/mitshell/CryptoMobile.git

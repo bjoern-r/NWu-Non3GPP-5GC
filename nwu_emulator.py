@@ -111,7 +111,7 @@ DEFAULT_IK = '0123456789ABCDEF0123456789ABCDEF'
 DEFAULT_RES = '0123456789ABCDEF'
 
 DEFAULT_DUMMY_USERPLANE_IPV4_ADDRESS = '60.60.0.1'
-DEFAULT_SD_1 = 0x010203
+DEFAULT_SD_1 = 0x000001
 DEFAULT_SD_2 = 0x112233
 
 TUNNEL_ID_SWU = 1
@@ -1819,8 +1819,9 @@ class nwu_swu():
                 else:
                     self.exec_in_netns("route add " + self.server_address[0] + "/32 gw " + self.default_gateway)
                 
-            self.exec_in_netns("route add -net 0.0.0.0/1 gw " + self.ip_address_list[0])
-            self.exec_in_netns("route add -net 128.0.0.0/1 gw " + self.ip_address_list[0])
+            #self.exec_in_netns("route add -net 0.0.0.0/1 gw " + self.ip_address_list[0])
+            #self.exec_in_netns("route add -net 128.0.0.0/1 gw " + self.ip_address_list[0])
+            self.exec_in_netns("route add -net 192.168.6.0/24 gw " + self.ip_address_list[0])
         
         if self.ipv6_address_list != []:
             ipv6_address_prefix = ':'.join(self.ipv6_address_list[0].split(':')[0:4])
@@ -1905,8 +1906,9 @@ class nwu_swu():
                 else:
                     self.exec_in_netns("route add " + self.server_address[0] + "/32 gw " + self.default_gateway)
                 
-            self.exec_in_netns("route add -net 0.0.0.0/1 gw " + userplane_ip_address)
-            self.exec_in_netns("route add -net 128.0.0.0/1 gw " + userplane_ip_address)
+            #self.exec_in_netns("route add -net 0.0.0.0/1 gw " + userplane_ip_address)
+            #self.exec_in_netns("route add -net 128.0.0.0/1 gw " + userplane_ip_address)
+            self.exec_in_netns("route add -net 192.168.6.0/24 gw " + userplane_ip_address)
         
         if userplane_ipv6_address is not None:
             ipv6_address_prefix = ':'.join(userplane_ipv6_address.split(':')[0:4])
